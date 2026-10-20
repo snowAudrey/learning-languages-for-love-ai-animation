@@ -7,7 +7,7 @@
 ## My part
 - Wrote the brief from my own text and teaching context.
 - Reviewed eight versions and steered each revision: content, colour, lettering and music.
-- Chose the final colours and Chinese typeface from rendered options.
+- Chose the final colours and Chinese font from rendered options.
 - Had the English translations proofread and approved the corrections.
 - Specified the learner-progress scene: pinyin, then a word, then sentences of growing difficulty.
 

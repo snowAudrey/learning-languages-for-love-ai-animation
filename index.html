@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="A bilingual animated video about language learning, directed by Xue He with an AI agent.">
+<meta property="og:title" content="Is It Useful? 有用吗">
+<meta property="og:image" content="poster.jpg">
+<title>Is It Useful? 有用吗</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&family=Figtree:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500&display=swap">
+<style>
+  /* Layout: one centred reading column; the video breaks out wider as the hero. Palette taken from the video itself. */
+  :root {
+    --bg: #FBF1EC;
+    --surface: #F6DDD3;
+    --fg: #3A1E2A;
+    --muted: #7A5560;
+    --rule: #E6C3B8;
+    --accent: #C9374F;
+    --font-display: "ZCOOL KuaiLe", "Noto Sans SC", "PingFang SC", sans-serif;
+    --font-body: "Figtree", "Noto Sans SC", "PingFang SC", system-ui, sans-serif;
+    --font-zh: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #1E1317; --surface: #2C1C22; --fg: #F4E6E0; --muted: #C2A3AB; --rule: #4A3138; --accent: #F0718A;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #1E1317; --surface: #2C1C22; --fg: #F4E6E0; --muted: #C2A3AB; --rule: #4A3138; --accent: #F0718A;
+    color-scheme: dark;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg); color: var(--fg);
+    font-family: var(--font-body); font-size: 17px; line-height: 1.6;
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+  }
+  main { max-width: 980px; margin: 0 auto; padding-block: 56px 72px; display: grid; gap: 48px; }
+  .col { max-width: 680px; width: 100%; margin: 0 auto; display: grid; gap: 16px; min-width: 0; }
+
+  header.col { gap: 12px; }
+  .eyebrow { font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-weight: 600; margin: 0; }
+  h1 { margin: 0; font-weight: 400; line-height: 1.1; text-wrap: balance; }
+  h1 .zh { font-family: var(--font-display); font-size: clamp(48px, 9vw, 76px); color: var(--fg); display: block; }
+  h1 .en { font-family: var(--font-body); font-weight: 600; font-size: clamp(22px, 3.4vw, 28px); color: var(--accent); display: block; margin-top: 6px; }
+  .lede { margin: 6px 0 0; font-size: 19px; color: var(--fg); max-width: 62ch; }
+  .byline { margin: 0; color: var(--muted); font-size: 15px; }
+  .byline a { color: inherit; }
+
+  figure { margin: 0; display: grid; gap: 10px; }
+  video {
+    width: 100%; max-width: 100%; aspect-ratio: 16 / 9; display: block;
+    border-radius: 10px; background: var(--surface);
+    box-shadow: 0 1px 0 var(--rule), 0 18px 40px -24px rgba(58, 30, 42, 0.45);
+  }
+  figcaption { color: var(--muted); font-size: 14px; text-align: center; }
+
+  h2 { font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin: 0; font-weight: 700; }
+  section.col { border-top: 1px solid var(--rule); padding-top: 28px; }
+
+  .split { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+  .split > div { min-width: 0; display: grid; gap: 10px; align-content: start; }
+  .split h3 { margin: 0; font-size: 17px; font-weight: 700; }
+  ul.plain { margin: 0; padding-left: 1.1em; display: grid; gap: 6px; }
+  ul.plain li::marker { color: var(--accent); }
+  .tools { color: var(--muted); font-size: 15px; margin: 0; }
+  @media (max-width: 640px) { .split { grid-template-columns: 1fr; } }
+
+  .original { background: var(--surface); border-radius: 10px; padding: 20px 22px; display: grid; gap: 14px; }
+  .original p { margin: 0; }
+  .original .zh { font-family: var(--font-zh); font-size: 18px; line-height: 1.85; }
+  .original .en { color: var(--muted); font-size: 16px; }
+
+  ol.prompts { margin: 0; padding: 0; list-style: none; display: grid; gap: 18px; counter-reset: p -1; }
+  ol.prompts li { display: grid; grid-template-columns: 34px 1fr; gap: 12px; counter-increment: p; }
+  ol.prompts li::before {
+    content: counter(p); font-weight: 700; font-size: 13px; color: var(--accent);
+    width: 26px; height: 26px; border-radius: 50%; border: 1.5px solid var(--accent);
+    display: grid; place-items: center; margin-top: 2px; font-variant-numeric: tabular-nums;
+  }
+  .p-body { min-width: 0; display: grid; gap: 4px; }
+  .p-head { font-weight: 600; font-size: 15px; }
+  .p-head span { color: var(--muted); font-weight: 400; }
+  .p-body blockquote { margin: 0; font-size: 16px; color: var(--fg); overflow-wrap: anywhere;
+    border-left: 3px solid var(--accent); padding: 4px 0 4px 16px; }
+  .p-body blockquote .zh { font-family: var(--font-zh); }
+
+  footer.col { color: var(--muted); font-size: 14px; border-top: 1px solid var(--rule); padding-top: 20px; }
+  a { color: var(--accent); text-underline-offset: 3px; }
+  a:focus-visible, video:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+</style>
+</head>
+<body>
+
+<main>
+  <header class="col">
+    <p class="eyebrow">Animation made with AI · 2026</p>
+    <h1><span class="zh">有用吗？</span><span class="en">Is It Useful?</span></h1>
+    <p class="lede">A 66-second bilingual animation about why people learn languages, made from a short reflection I wrote for a student's writing project. I directed an AI agent through eight versions to get from that text to this video.</p>
+    <p class="byline">Xue He · <a href="https://github.com/snowAudrey">github.com/snowAudrey</a></p>
+  </header>
+
+  <figure>
+    <video controls playsinline preload="metadata" poster="poster.jpg">
+      <source src="video.mp4" type="video/mp4">
+      Your browser can't play this video.
+    </video>
+    <figcaption>1920 × 1080 · 66 s · sound on</figcaption>
+  </figure>
+
+  <section class="col" aria-labelledby="role">
+    <h2 id="role">How it was made</h2>
+    <div class="split">
+      <div>
+        <h3>My part</h3>
+        <ul class="plain">
+          <li>Wrote the brief from my own text and teaching context.</li>
+          <li>Reviewed eight versions and steered each revision: content, colour, lettering and music.</li>
+          <li>Chose the final colours and Chinese typeface from rendered options.</li>
+          <li>Had the English translations proofread and approved the corrections.</li>
+          <li>Specified the learner-progress scene: pinyin, then a word, then sentences of growing difficulty.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>The AI's part</h3>
+        <ul class="plain">
+          <li>Claude (Anthropic) wrote and ran all the code that drew the frames, synthesized the music and assembled the video.</li>
+          <li>Proposed the visual concepts, translations and learner sentences for me to accept or redirect.</li>
+        </ul>
+        <p class="tools">Python · NumPy · SciPy · Pillow · FFmpeg · Claude</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="col" aria-labelledby="text">
+    <h2 id="text">The original text</h2>
+    <div class="original">
+      <p class="zh" lang="zh-CN">有些人说学习语言并没有什么用处，他们说你应该学习一个有用的技能，不要花那么多时间学习语言。但是，很多人学习语言是因为他们喜欢学习语言，没有什么别的原因，就好像有人喜欢画画，他们就会去花很多时间画画。希望我们都能有这种自由去学习我们喜欢的东西。</p>
+      <p class="en">Some people say learning languages isn't of much use. They say you should learn a useful skill and not spend so much time learning languages. But many people learn languages because they love learning them, for no other reason. It's just like someone who loves painting: they'll spend hours and hours painting. I hope we can all have the freedom to learn what we love.</p>
+    </div>
+  </section>
+
+  <section class="col" aria-labelledby="log">
+    <h2 id="log">The prompt</h2>
+    <div class="p-body">
+      <blockquote>One of my students interviewed me on my view about language learning and Chinese language teaching for a writing project. I was teaching Chinese language and culture courses at a university at that time. I wrote a few sentences for his project: <span class="zh" lang="zh-CN">有些人说学习语言并没有什么用处，他们说你应该学习一个有用的技能，不要花那么多时间学习语言。但是，很多人学习语言是因为他们喜欢学习语言，没有什么别的原因，就好像有人喜欢画画，他们就会去花很多时间画画。希望我们都能有这种自由去学习我们喜欢的东西。</span>Based on your understanding of this context and my sentences, please create a short video about your understanding of my sentences and language learning. Use your imagination for the video. You can also create a few versions.</blockquote>
+    </div>
+  </section>
+
+  <footer class="col">
+    <p style="margin:0">Fonts in the video: ZCOOL KuaiLe and Inter, both under the SIL Open Font License.</p>
+  </footer>
+</main>
+
+</body>
+</html>
